@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'local'
     }
-}, { timestamps: true, versionKey: true });
+}, { timestamps: true });
 
 const UserModel = mongoose.model("user", userSchema);
 

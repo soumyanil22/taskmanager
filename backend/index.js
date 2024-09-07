@@ -1,22 +1,23 @@
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
+const passport = require("passport");
+const session = require("express-session");
+const ensureAuthenticated = require("./middlewares/Authentication");
 const connection = require("./config/db");
+require("dotenv").config();
+
+// Passport config
+require('./config/passportConfig');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-const mongoose = require('mongoose');
+app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.get("/", async(req, res) => {
-    try {
-        const todos = mongoose.model('todos').find();
-        res.send(todos);
-    } catch (error) {
-        console.log(error);
-    }
-});
-
+const authRoutes = require("./routes/authRoutes");
+app.use("/auth", authRoutes);
 
 app.listen(process.env.PORT || 5000, async () => {
     try {
