@@ -1,6 +1,6 @@
 const UserModel = require('../models/User');
 
-const registerUser = async (name, email, password) => {
+const registerUser = async (firstname, lastname, email, password) => {
     try {
         const existingUser = await UserModel.findOne({ email });
 
@@ -8,7 +8,7 @@ const registerUser = async (name, email, password) => {
             throw new Error('User already exists');
         }
         const hashedPassword = await bcrypt.hash(password, 8);
-        const newUser = new UserModel({ name, email, password: hashedPassword });
+        const newUser = new UserModel({ firstname, lastname, email, password: hashedPassword });
         await newUser.save();
 
         return newUser;

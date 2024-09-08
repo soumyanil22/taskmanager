@@ -40,7 +40,8 @@ passport.use(
                     // Create a new user if it doesn't exist
                     user = await UserModel.create({
                         googleId: profile.id,
-                        name: profile.displayName,
+                        firstname: profile.name.givenName,
+                        lastname: profile.name.familyName,
                         email: profile.emails[0].value,
                     });
                 }

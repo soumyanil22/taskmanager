@@ -12,7 +12,13 @@ require('./config/passportConfig');
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true }));
+app.use(session({
+    secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false, cookie: {
+        httpOnly: true, // Prevents client-side JS from accessing the cookie
+        secure: false,
+        maxAge: 1000 * 60 * 60 * 24 // Session expires after 24 hours
+    }
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
