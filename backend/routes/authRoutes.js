@@ -7,6 +7,17 @@ router.post('/login', passport.authenticate('local', { session: true, keepSessio
     res.status(200).json({ authenticated: true, user: req.user });
 })
 
+router.post('/logout', (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            return res.status(500).json({ message: 'Logout failed' });
+        }
+        req.session.destroy(); // Destroy the session
+        res.clearCookie('connect.sid'); // Clear the session cookie
+        res.status(200).json({ message: 'Logged out successfully' });
+    });
+});
+
 router.post('/register', async (req, res) => {
     try {
         const { firstname, lastname, email, password } = req.body;
@@ -20,11 +31,11 @@ router.post('/register', async (req, res) => {
 
 router.get('/login/google', passport.authenticate('google', { session: true, keepSessionInfo: true, scope: ['profile', 'email'] }));
 
-router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
     res.status(200).json({ authenticated: true, user: req.user });
 });
 
-router.get('/auth/check-session', (req, res) => {
+router.get('/check-session', (req, res) => {
     if (req.isAuthenticated()) {
         const user = {
             id: req.user._id,
