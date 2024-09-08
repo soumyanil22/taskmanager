@@ -1,4 +1,5 @@
 const UserModel = require('../models/User');
+const bcrypt = require('bcrypt');
 
 const registerUser = async (firstname, lastname, email, password) => {
     try {

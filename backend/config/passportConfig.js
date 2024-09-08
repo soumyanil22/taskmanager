@@ -43,6 +43,7 @@ passport.use(
                         firstname: profile.name.givenName,
                         lastname: profile.name.familyName,
                         email: profile.emails[0].value,
+                        provider: 'google'
                     });
                 }
 
