@@ -33,7 +33,7 @@ router.get('/login/google', passport.authenticate('google', { session: true, kee
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
     res.send(`<script>
-        window.opener.postMessage({ authenticated: true, user: ${JSON.stringify(req.user)} }, '*');
+       window.opener.postMessage({ authenticated: true, user: ${JSON.stringify(req.user)} }, 'https://sparkling-douhua-a6483b.netlify.app/');
         window.close();
       </script>`);
 });
