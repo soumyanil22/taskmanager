@@ -9,13 +9,14 @@ const todoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    progress: {
-        type: Boolean,
+    status: {
+        type: String,
         required: true,
     },
-    completed: {
-        type: Boolean,
-        default: false
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
+        required: true
     }
 }, { timestamps: true });
 

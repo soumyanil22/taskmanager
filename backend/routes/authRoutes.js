@@ -32,7 +32,10 @@ router.post('/register', async (req, res) => {
 router.get('/login/google', passport.authenticate('google', { session: true, keepSessionInfo: true, scope: ['profile', 'email'] }));
 
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-    res.status(200).json({ authenticated: true, user: req.user });
+    res.send(`<script>
+        window.opener.postMessage({ authenticated: true, user: ${JSON.stringify(req.user)} }, '*');
+        window.close();
+      </script>`);
 });
 
 router.get('/check-session', (req, res) => {

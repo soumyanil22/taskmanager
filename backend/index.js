@@ -23,6 +23,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const authRoutes = require("./routes/authRoutes");
+const todoRoutes = require("./routes/todoRoutes");
+
+app.use("/todos", ensureAuthenticated, todoRoutes);
 app.use("/auth", authRoutes);
 
 app.listen(process.env.PORT || 5000, async () => {
