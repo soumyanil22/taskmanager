@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { registerUser } = require('../services/userService');
 const passport = require('passport');
+const ensureAuthenticated = require('../middlewares/Authentication');
 
 router.post('/login', passport.authenticate('local', { session: true, keepSessionInfo: true, failureRedirect: '/login', failureMessage: true }), (req, res) => {
     res.status(200).json({ authenticated: true, user: req.user });
@@ -38,17 +39,13 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
       </script>`);
 });
 
-router.get('/check-session', (req, res) => {
-    if (req.isAuthenticated()) {
-        const user = {
-            id: req.user._id,
-            name: req.user.name,
-            email: req.user.email
-        };
-        res.status(200).json({ authenticated: true, user });
-    } else {
-        res.status(401).json({ authenticated: false, message: 'User not authenticated' });
-    }
+router.get('/check-session', ensureAuthenticated, (req, res) => {
+    const user = {
+        id: req.user._id,
+        name: req.user.name,
+        email: req.user.email
+    };
+    res.status(200).json({ authenticated: true, user });
 });
 
 module.exports = router
