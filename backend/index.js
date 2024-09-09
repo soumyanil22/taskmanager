@@ -15,7 +15,8 @@ app.use(express.json());
 app.use(session({
     secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false, cookie: {
         httpOnly: true, // Prevents client-side JS from accessing the cookie
-        secure: false,
+        sameSite: 'none',
+        secure: true,
         maxAge: 1000 * 60 * 60 * 24 // Session expires after 24 hours
     }
 }));
