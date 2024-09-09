@@ -27,7 +27,7 @@ const getTodo = async (id) => {
     }
 }
 
-const getTodos = async ({ id }) => {
+const getTodos = async (id) => {
     try {
         const todos = await todoModel.find({ user: id });
         return todos;
