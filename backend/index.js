@@ -23,7 +23,7 @@ redisClient.connect().catch(console.error)
 
 const app = express();
 app.use(cors({
-    origin: ["http://localhost:5173,", "https://sparkling-douhua-a6483b.netlify.app"],
+    origin: ["https://sparkling-douhua-a6483b.netlify.app", "http://localhost:5173"],
     credentials: true
 }));
 app.use(express.json());
@@ -34,8 +34,8 @@ app.use(session({
     saveUninitialized: false,
     cookie: {
         httpOnly: true,
-        sameSite: 'None',
-        secure: process.env.PRODUCTION === true,
+        secure: true,
+        sameSite: 'none',
         maxAge: 1000 * 60 * 60 * 24 // 24 hours
     }
 }));
