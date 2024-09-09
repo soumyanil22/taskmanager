@@ -5,7 +5,7 @@ const ensureAuthenticated = (req, res, next) => {
         return next();
     }
 
-    res.redirect('https://sparkling-douhua-a6483b.netlify.app/login');
+    res.status(401).json({ message: 'Unauthorized' });
 };
 
 module.exports = ensureAuthenticated;
