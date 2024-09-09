@@ -20,6 +20,7 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 24 // Session expires after 24 hours
     }
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
