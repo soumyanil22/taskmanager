@@ -55,7 +55,7 @@ const Signup = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      const googleLoginURL = 'http://localhost:6868/auth/login/google';
+      const googleLoginURL = 'https://tasky.adaptable.app/auth/login/google';
       const width = 500;
       const height = 600;
       const left = (window.innerWidth - width) / 2;
