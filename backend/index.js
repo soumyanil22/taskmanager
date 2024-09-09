@@ -12,15 +12,20 @@ require("dotenv").config();
 require('./config/passportConfig');
 
 const app = express();
-app.use(cors({ origin: ["http://localhost:5173,", "https://sparkling-douhua-a6483b.netlify.app"], credentials: true }));
+app.use(cors({
+    origin: ["http://localhost:5173,", "https://sparkling-douhua-a6483b.netlify.app"],
+    credentials: true
+}));
 app.use(express.json());
 app.use(session({
-    store: new RedisStore({ client: redisClient }),
-    secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false, cookie: {
-        httpOnly: true, // Prevents client-side JS from accessing the cookie
-        sameSite: 'none',
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 1000 * 60 * 60 * 24 // Session expires after 24 hours
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        sameSite: 'None',
+        secure: true,
+        maxAge: 1000 * 60 * 60 * 24 // 24 hours
     }
 }));
 
