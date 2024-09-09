@@ -3,7 +3,8 @@ const router = require('express').Router();
 
 router.get('/all', async (req, res) => {
     try {
-        const todos = await getTodos();
+        const userId = req.user._id;
+        const todos = await getTodos(_id);
         res.status(200).json(todos);
     } catch (error) {
         res.status(500).json({ message: error.message });
