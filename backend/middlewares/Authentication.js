@@ -1,7 +1,7 @@
 // a middleware that checks if the user is authenticated
 
 const ensureAuthenticated = (req, res, next) => {
-    if (req.isAuthenticated()) {
+    if (req.session && req.session.user) {
         return next();
     }
 
